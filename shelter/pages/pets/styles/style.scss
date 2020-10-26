@@ -1,0 +1,81 @@
+@import './variables';
+@import './header';
+@import './friends';
+@import './footer';
+@import './popup';
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: 0 !important;
+}
+
+body {
+    @include fontFamily('Arial', 400, normal, 15px, 24px, 0px, $greyMain);
+}
+body.lock {
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.container__header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.visually-hidden {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+}
+
+h2 {
+    @include fontFamily('Georgia', 400, normal, 35px, 45px, 2.1px, $greyMain);
+}
+
+h3 {
+    @include fontFamily('Georgia', 400, normal, 20px, 23px, 1.2px, $greyMain); 
+}
+
+ul, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+
+@media (max-width: 1279px) {
+    .container {
+        padding: 0 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    body.lock {
+        overflow: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+
+    h2 {
+        @include fontFamily('Georgia', 400, normal, 25px, 32px, 1.5px, $greyMain);
+    }
+}
