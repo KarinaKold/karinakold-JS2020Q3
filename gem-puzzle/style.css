@@ -1,0 +1,305 @@
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:url(./images/background/1.jpg) repeat-x;
+    background-size: cover;
+    margin: 0;
+}
+
+.main {
+    background-color:black;
+    opacity: 0.8;
+    position: relative;
+    border-radius: 5px;
+}
+
+.main .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row;
+    margin: 3px;
+    padding: 0 6px;
+    height: 7vh;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.2em;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, calc((70vh + 70vw) / 12));
+    grid-template-rows: repeat(4, calc((70vh + 70vw) / 12));
+    gap: 3px;
+    margin: 3px;
+}
+.grid_element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    width: calc((70vh + 70vw) / 12);
+    height: calc((70vh + 70vw) / 12);
+    font-size: 1.5em;
+}
+.grid_element:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.empty {
+    background-color:black;
+    border: none;
+}
+.empty:hover {
+    cursor: unset;
+}
+
+.menu {
+    position: absolute;
+    z-index: 5;
+    height: 0;
+    width: 0;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    background-color:rgb(20, 20, 20);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 22px;
+}
+.menuWrap {
+    content: url(./images/background/menu.png);
+    cursor: pointer;
+    z-index: 10;
+}
+.menu_element {
+    margin-bottom: 10px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 1.8;
+}
+.menu.animateOpen {
+    animation-duration: 0.5s;
+    animation-name: animateOpen;
+    transition-timing-function: ease;
+    animation-fill-mode: forwards;   
+}
+.menu.animateClose {
+    animation-duration: 0.5s;
+    animation-name: animateClose;
+    transition-timing-function: ease;
+    animation-fill-mode: forwards;
+}
+
+@keyframes animateOpen {
+    0% {
+        width: 0; 
+        height: 0; 
+        opacity: 0;
+    }
+    100% {
+        width: 100%; 
+        height: 100%; 
+        opacity: 1;
+    }
+}
+
+@keyframes animateClose {
+    0% {
+        width: 100%; 
+        height: 100%; 
+        opacity: 1;
+    }
+    100% {
+        width: 0; 
+        height: 0; 
+        opacity: 0;
+    }
+}
+
+.sound {
+    cursor: pointer;
+    background-image: url("assets/volume-on.svg");
+    width: 30px;
+    height: 30px;
+}
+
+select {
+    margin: 0 5px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    outline: none;
+    border: 1px solid rgb(255, 234, 201);
+    font-size: 1em;
+}
+
+span {
+    cursor: auto;
+}
+
+.msg {
+    position: absolute;
+    z-index: 15;
+    height: 0;
+    width: 0;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-flow: column;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 25px;
+    font-weight: 700;
+    text-shadow:1px 0 1px white, 
+                0 1px 1px white, 
+                -1px 0 1px white, 
+                0 -1px 1px white;
+}
+.newGemMsg {
+    margin: 5px 0;
+    text-decoration: underline;
+    font-weight: 800;
+    cursor: pointer;
+}
+.msg.msgOpen {
+    animation-duration: 0.5s;
+    animation-name: msgOpen;
+    transition-timing-function: ease;
+    animation-fill-mode: forwards;   
+}
+.msg.msgClose {
+    animation-duration: 0.5s;
+    animation-name: msgClose;
+    transition-timing-function: ease;
+    animation-fill-mode: forwards;
+}
+
+@keyframes msgOpen {
+    0% {
+        width: 0; 
+        height: 0; 
+        opacity: 0;
+    }
+    100% {
+        width: 100%; 
+        height: 100%; 
+        opacity: 0.9;
+    }
+}
+@keyframes msgClose {
+    0% {
+        width: 100%; 
+        height: 100%; 
+        opacity: 0.9;
+    }
+    100% {
+        width: 0; 
+        height: 0; 
+        opacity: 0;
+    }
+}
+
+.score {
+    position: absolute;
+    z-index: 15;
+    height: 0;
+    width: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    background-color: rgb(12, 38, 56);
+    color: rgb(222, 230, 253);
+    border-radius: 5px;
+    overflow: hidden;
+}
+.score.toOpen {
+    animation-duration: 0.5s;
+    animation-name: toOpen;
+    transition-timing-function: ease;
+    animation-fill-mode: forwards;   
+}
+.score.toClose {
+    animation-duration: 0.5s;
+    animation-name: toClose;
+    transition-timing-function: ease;
+    animation-fill-mode: forwards;
+}
+
+@keyframes toOpen {
+    0% {
+        width: 0; 
+        height: 0; 
+        opacity: 0;
+    }
+    100% {
+        width: 100%;
+        height: 100%; 
+        opacity: 1;
+    }
+}
+@keyframes toClose {
+    0% {
+        width: 100%; 
+        height: 100%; 
+        opacity: 1;
+    }
+    100% {
+        width: 0; 
+        height: 0; 
+        opacity: 0;
+    }
+}
+
+table, th, td {
+    text-align: center;
+    border: 1px solid rgb(255, 255, 255);
+    border-collapse: collapse;
+    padding: 2px;
+}
+
+.closing {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    right: 2%;
+}
+
+.shield {
+    position: absolute;
+    z-index: 30;
+    height: 100%;
+    width: 100%;
+    display: none;
+    opacity: 0;
+    top: 0;
+    left: 0;
+}
+
+@media (max-width: 768px) {
+  html{
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 450px) {
+  .header{
+    font-size: 12px;
+  }
+}
