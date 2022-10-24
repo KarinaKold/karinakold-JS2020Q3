@@ -373,7 +373,7 @@ const Gem = {
                     
                     const picText = document.createElement("span");
                     picText.innerText = "\nImages";
-                    menuElement.app
+                    // menuElement.app
                     menuElement.appendChild(document.createElement("br"));
                     menuElement.appendChild(select);
                     menuElement.appendChild(picText);
@@ -596,7 +596,7 @@ const Gem = {
         document.querySelector(".msg").classList.remove("msgClose");
         let score = (1 - this.properties.auto) * parseInt((1 + this.properties.size * this.properties.picture / 2)*Math.pow(this.properties.moves, 2)*this.properties.size/(this.properties.time[0]*60 + this.properties.time[1]));
         let final = {
-            score,
+            score: this.properties.score,
             size: this.properties.size,
             moves: this.properties.moves,
             time: this.properties.time,
