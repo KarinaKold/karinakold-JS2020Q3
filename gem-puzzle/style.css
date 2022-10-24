@@ -227,20 +227,20 @@ span {
     border-radius: 5px;
     overflow: hidden;
 }
-.score.toOpen {
+.score.lbOpen {
     animation-duration: 0.5s;
     animation-name: toOpen;
     transition-timing-function: ease;
     animation-fill-mode: forwards;   
 }
-.score.toClose {
+.score.lbClose {
     animation-duration: 0.5s;
     animation-name: toClose;
     transition-timing-function: ease;
     animation-fill-mode: forwards;
 }
 
-@keyframes toOpen {
+@keyframes lbOpen {
     0% {
         width: 0; 
         height: 0; 
@@ -252,7 +252,7 @@ span {
         opacity: 1;
     }
 }
-@keyframes toClose {
+@keyframes lbClose {
     0% {
         width: 100%; 
         height: 100%; 
