@@ -4,13 +4,15 @@ body {
     justify-content: center;
     align-items: center;
     background:url(./images/background/1.jpg) repeat-x;
-    background-size: cover;
+    background-size:auto;
     margin: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 .main {
     background-color:black;
-    opacity: 0.8;
+    opacity: 0.7;
     position: relative;
     border-radius: 5px;
 }
@@ -35,16 +37,20 @@ body {
     gap: 3px;
     margin: 3px;
 }
+
 .grid_element {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
     border-radius: 5px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
     width: calc((70vh + 70vw) / 12);
     height: calc((70vh + 70vw) / 12);
     font-size: 1.5em;
 }
+
 .grid_element:hover {
     opacity: 0.9;
     cursor: pointer;
@@ -54,8 +60,15 @@ body {
     background-color:black;
     border: none;
 }
+
 .empty:hover {
     cursor: unset;
+}
+
+.sound {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
 }
 
 .menu {
@@ -75,23 +88,27 @@ body {
     overflow: hidden;
     font-size: 22px;
 }
+
 .menuWrap {
     content: url(./images/background/menu.png);
     cursor: pointer;
     z-index: 10;
 }
+
 .menu_element {
     margin-bottom: 10px;
     text-align: center;
     cursor: pointer;
     line-height: 1.8;
 }
+
 .menu.animateOpen {
     animation-duration: 0.5s;
     animation-name: animateOpen;
     transition-timing-function: ease;
     animation-fill-mode: forwards;   
 }
+
 .menu.animateClose {
     animation-duration: 0.5s;
     animation-name: animateClose;
@@ -111,7 +128,6 @@ body {
         opacity: 1;
     }
 }
-
 @keyframes animateClose {
     0% {
         width: 100%; 
@@ -123,13 +139,6 @@ body {
         height: 0; 
         opacity: 0;
     }
-}
-
-.sound {
-    cursor: pointer;
-    background-image: url("assets/volume-on.svg");
-    width: 30px;
-    height: 30px;
 }
 
 select {
@@ -162,23 +171,26 @@ span {
     overflow: hidden;
     font-size: 25px;
     font-weight: 700;
-    text-shadow:1px 0 1px white, 
-                0 1px 1px white, 
-                -1px 0 1px white, 
-                0 -1px 1px white;
+    text-shadow: 1px 0 1px rgb(255, 255, 255), 
+        0 1px 1px rgb(255, 255, 255), 
+        -1px 0 1px white, 
+        0 -1px 1px white;
 }
+
 .newGemMsg {
     margin: 5px 0;
     text-decoration: underline;
     font-weight: 800;
     cursor: pointer;
 }
+
 .msg.msgOpen {
     animation-duration: 0.5s;
     animation-name: msgOpen;
     transition-timing-function: ease;
     animation-fill-mode: forwards;   
 }
+
 .msg.msgClose {
     animation-duration: 0.5s;
     animation-name: msgClose;
@@ -198,6 +210,7 @@ span {
         opacity: 0.9;
     }
 }
+
 @keyframes msgClose {
     0% {
         width: 100%; 
@@ -227,15 +240,17 @@ span {
     border-radius: 5px;
     overflow: hidden;
 }
+
 .score.lbOpen {
     animation-duration: 0.5s;
-    animation-name: toOpen;
+    animation-name: lbOpen;
     transition-timing-function: ease;
     animation-fill-mode: forwards;   
 }
+
 .score.lbClose {
     animation-duration: 0.5s;
-    animation-name: toClose;
+    animation-name: lbClose;
     transition-timing-function: ease;
     animation-fill-mode: forwards;
 }
@@ -252,6 +267,7 @@ span {
         opacity: 1;
     }
 }
+
 @keyframes lbClose {
     0% {
         width: 100%; 
@@ -272,13 +288,11 @@ table, th, td {
     padding: 2px;
 }
 
-.closing {
+.closeLb {
     position: absolute;
     top: 10px;
     right: 5px;
     cursor: pointer;
-    font-weight: bold;
-    right: 2%;
 }
 
 .shield {
