@@ -62,7 +62,6 @@ const Gem = {
         this.elements.sound.addEventListener("click", () => {
             this.toggleSound();
         });
-
         this.elements.header.appendChild(this.elements.sound);
         this.elements.moveWrap.classList.add("moveWrap");
         this.elements.moveWrap.textContent = `moves: ${this.properties.moves}`;
@@ -75,7 +74,6 @@ const Gem = {
         this.elements.menuWrap.addEventListener("click", () => {
             this.toggleMenu();
         });
-
         this.elements.header.appendChild(this.elements.menuWrap);
         this.elements.header.classList.add("header");
         this.elements.main.appendChild(this.elements.header);
@@ -87,29 +85,26 @@ const Gem = {
         this.elements.main.appendChild(this.elements.openedMenuWrap);
         this.elements.solveMsg.classList.add("msg");
         this.elements.main.appendChild(this.elements.solveMsg);
+
         document.body.appendChild(this.elements.main);
 
         let a1 = document.createElement("audio");
         let a2 = document.createElement("audio");
         a1.classList.add("audio1");
         a2.classList.add("audio2");
-        a1.src = "./assets/tap-en.wav";
-        a2.src = "./assets/tap-ru.wav";
-
+        a1.src = "assets/tap-en.wav";
+        a2.src = "assets/tap-ru.wav";
         document.body.appendChild(a1);
         document.body.appendChild(a2);
 
         this.elements.score.classList.add("score");
-
         let closeLb = document.createElement("div");
         closeLb.textContent = "close";
         closeLb.classList.add("closeLb");
-
         closeLb.addEventListener("click", () => {
             document.querySelector(".score").classList.add("lbClose");
             document.querySelector(".score").classList.remove("lbOpen");
         });
-
         this.elements.score.appendChild(closeLb);
         this.elements.score.appendChild(document.createElement("table"));
         this.elements.main.appendChild(this.elements.score);
@@ -128,16 +123,12 @@ const Gem = {
     swapElements(e) {
         const pos1 = (parseInt(e.style.gridArea[0]) - 1) * this.properties.size + parseInt(e.style.gridArea[4]);
         const pos2 = (this.properties.emptyPos[0] - 1) * this.properties.size + this.properties.emptyPos[1];
-
         this.properties.emptyPos[0] = parseInt(e.style.gridArea[0]);
         this.properties.emptyPos[1] = parseInt(e.style.gridArea[4]);
-
         e.style.gridArea = document.querySelector(".empty").style.gridArea;
         document.querySelector(".empty").style.gridArea = `${this.properties.emptyPos[0]} / ${this.properties.emptyPos[1]} / ${this.properties.emptyPos[0]} / ${this.properties.emptyPos[1]}`;
-        
         e.classList.add(`pos${pos2}`);
         e.classList.remove(`pos${pos1}`);
-        
         document.querySelector(".empty").classList.add(`pos${pos1}`);
         document.querySelector(".empty").classList.remove(`pos${pos2}`);
         this.properties.flow.push(pos2);
@@ -148,7 +139,6 @@ const Gem = {
         let b2 = 0;
         let n1 = parseInt(e.style.gridArea[4]) - Gem.properties.emptyPos[1];
         let n2 = parseInt(e.style.gridArea[0]) - Gem.properties.emptyPos[0];
-
         if (n1 === 0) {
             if (n2 === 1) {
                 b2 = -1;
@@ -162,20 +152,16 @@ const Gem = {
                b1 = 1;
             }
         };
-
         let pos1 = e.getBoundingClientRect().left;
         let pos2 = e.getBoundingClientRect().top;
-
         document.body.append(e);
         e.style.position = "absolute";
         e.style.opacity = 0.8;
         e.style.left = pos1 + "px";
         e.style.top = pos2 + "px";
-
         let a1 = (pos1 + b1 * (2 + (0.7 * document.documentElement.scrollWidth + 0.7 * document.documentElement.scrollHeight) / (3 * Gem.properties.size)));
         let a2 = (pos2 + b2 * (2 + (0.7 * document.documentElement.scrollWidth + 0.7 * document.documentElement.scrollHeight) / (3 * Gem.properties.size)));
         let id = setInterval(frame, 3);
-
         function frame() {
             if (pos1 * b1 > a1 * b1 || pos2 * b2 > a2 * b2) {
                 clearInterval(id);
@@ -197,23 +183,22 @@ const Gem = {
 
     countMoves() {
         this.properties.moves++;
-        document.querySelector(".moveWrap").textContent = `Moves: ${this.properties.moves}`;
+        document.querySelector(".moveWrap").textContent = `moves: ${this.properties.moves}`;
     },
 
     createGrid() {
         const fragment = document.createDocumentFragment();
         let timestamp = 0;
-
         for (let i = 1; i < this.properties.size * this.properties.size + 1; i++) {
             const gridElement = document.createElement("div");
             gridElement.classList.add("grid_element");
-
             if (i === this.properties.size * this.properties.size) {
                 gridElement.textContent = "";
                 gridElement.classList.add("empty");
                 this.properties.emptyPos = [parseInt(this.properties.size), parseInt(this.properties.size)];
             } else {
                 gridElement.textContent = i;
+
                 gridElement.addEventListener("mousedown", (e) => {
                     timestamp = new Date().getTime();
                     let shiftX = e.clientX - e.target.getBoundingClientRect().left;
@@ -226,16 +211,13 @@ const Gem = {
                         e.target.style.left = pageX - shiftX + 'px';
                         e.target.style.top = pageY - shiftY + 'px';
                     }
-
                     let elemBelow = null;
-
                     function onMouseMove(e) {
                         moveAt(e.pageX, e.pageY);
                         e.target.style.display = "none";
                         elemBelow = document.elementFromPoint(e.clientX, e.clientY);
                         e.target.style.display = "flex";
                     }
-
                     function isEmptyBelow() {
                         if (elemBelow === document.querySelector(".empty")) {
                             return true;
@@ -243,9 +225,7 @@ const Gem = {
                             return false;
                         }
                     }
-
                     document.addEventListener("mousemove", onMouseMove);
-
                     e.target.onmouseup = function() {
                         document.removeEventListener("mousemove", onMouseMove);
                         e.target.onmouseup = null;
@@ -255,22 +235,18 @@ const Gem = {
 
                         const interval = 120;
                         let timestamp2 = new Date().getTime();
-
                         if((timestamp2 - timestamp) > interval) { 
                             if (Gem.isNear(e.target) && isEmptyBelow()) {
                                 Gem.swapElements(e.target);
                                 Gem.countMoves();
-
                                 if (Gem.properties.sound) {
                                     audio = document.querySelector(".audio1");
                                     audio.currentTime = 0;
                                     audio.play();
                                 }
-
                                 if (Gem.isSolved()) {
                                     Gem.showMsg();
                                 }
-
                             } else {
                                 if (Gem.properties.sound) {
                                     audio = document.querySelector(".audio2");
@@ -279,23 +255,19 @@ const Gem = {
                                 }
                                 return;
                             }
-
                         } else {
                             if (Gem.isNear(e.target)) {
                                 Gem.animate(e.target);
                                 Gem.swapElements(e.target);
                                 Gem.countMoves();
-
                                 if (Gem.properties.sound) {
                                     audio = document.querySelector(".audio1");
                                     audio.currentTime = 0;
                                     audio.play();
                                 }
-
                                 if (Gem.isSolved()) {
                                     Gem.showMsg();
                                 }
-
                             } else {
                                 if (Gem.properties.sound) {
                                     audio = document.querySelector(".audio2");
@@ -307,18 +279,15 @@ const Gem = {
                         }
                     };
                 });
-
                 gridElement.addEventListener("dragstart", (e) => {
                     return false;
                 });
             };
-
             gridElement.classList.add("n" + i);
             gridElement.classList.add("pos" + i);
             gridElement.style.gridArea = `${parseInt((i - 1) / this.properties.size) + 1} / ${(i - 1) % this.properties.size + 1} / ${parseInt((i - 1) / this.properties.size) + 1} / ${(i - 1) % this.properties.size + 1}`;
             gridElement.style.width = `calc((70vh + 70vw) / (${this.properties.size}*3))`;
             gridElement.style.height = `calc((70vh + 70vw) / (${this.properties.size}*3))`;
-            
             if (this.properties.picture && i !== this.properties.size * this.properties.size) {
                 gridElement.style.color = "rgba(0, 0, 0, 0)";
                 gridElement.style.backgroundImage = this.properties.pictureURL;
@@ -337,7 +306,6 @@ const Gem = {
             const menuElement = document.createElement("div");
             menuElement.classList.add("menu_element");
             menuElement.textContent = elem;
-
             switch (elem) {
                 case "New Game":
                     const select = document.createElement("select");
@@ -347,7 +315,6 @@ const Gem = {
                     const x6 = document.createElement("option");
                     const x7 = document.createElement("option");
                     const x8 = document.createElement("option");
-
                     x3.value = "3x3";
                     x3.innerText = "3x3";
                     x4.value = "4x4";
@@ -360,7 +327,6 @@ const Gem = {
                     x7.innerText = "7x7";
                     x8.value = "8x8";
                     x8.innerText = "8x8";
-
                     select.appendChild(x3);
                     select.appendChild(x4);
                     select.appendChild(x5);
@@ -370,10 +336,11 @@ const Gem = {
 
                     const pic = document.createElement("input");
                     pic.type = "checkbox";
-                    
+
                     const picText = document.createElement("span");
-                    picText.innerText = "\nImages";
-                    // menuElement.app
+                    picText.innerText = "\nКартинки";
+
+                    menuElement.app
                     menuElement.appendChild(document.createElement("br"));
                     menuElement.appendChild(select);
                     menuElement.appendChild(picText);
@@ -382,15 +349,12 @@ const Gem = {
                     select.addEventListener("click", (e) => {
                         e.stopPropagation();
                     });
-
                     pic.addEventListener("click", (e) => {
                         e.stopPropagation();
                     });
-
                     picText.addEventListener("click", (e) => {
                         e.stopPropagation();
                     });
-
                     menuElement.addEventListener("click", () => {
                         let grid = document.querySelector(".grid");
                         grid.style.gridTemplateColumns = `repeat(${select.value[0]}, calc((70vh + 70vw) / (${select.value[0]}*3)))`;
@@ -398,20 +362,16 @@ const Gem = {
                         this.properties.size = select.value[0];
                         this.properties.picture = pic.checked;
                         this.properties.pictureURL = `url("assets/${Math.floor(1 + Math.random() * 90)}.jpg")`;
-
                         while (grid.firstChild) {
                              grid.removeChild(grid.firstChild);
                         }
-
                         grid.appendChild(this.createGrid());
                         this.properties.flow = [];
                         this.properties.moves = 0;
-
                         this.shuffle();
                         this.toggleMenu();
                     });
                     break;
-
                 case "Save":     
                     menuElement.addEventListener("click", () => {
                         let temp = [];
@@ -432,7 +392,6 @@ const Gem = {
                         this.toggleMenu();
                     });
                     break;
-
                 case "Load":    
                     menuElement.addEventListener("click", () => {
                         if (localStorage.getItem("save") === null) {
@@ -443,60 +402,48 @@ const Gem = {
                             this.properties.size = parseInt(arr[3]);
                             this.properties.picture = (arr[4] === "true");
                             this.properties.pictureURL = arr[5];
-                            
                             let grid = document.querySelector(".grid");
                             grid.style.gridTemplateColumns = `repeat(${this.properties.size}, calc((70vh + 70vw) / (${this.properties.size}*3)))`;
                             grid.style.gridTemplateRows = `repeat(${this.properties.size}, calc((70vh + 70vw) / (${this.properties.size}*3)))`;
-                            
                             while (grid.firstChild) {
                                 grid.removeChild(grid.firstChild);
                             }
-
                             grid.appendChild(this.createGrid());
                             let arr2 = document.querySelectorAll(".grid_element");
-
                             for (let i = 0; i < arr2.length; i++) {
                                 arr2[i].style.gridArea = arr[i + 6];
                                 arr2[i].classList.remove(`pos${i + 1}`);
                                 let pos = (parseInt(arr2[i].style.gridArea[0]) - 1) * this.properties.size + parseInt(arr2[i].style.gridArea[4]);
                                 arr2[i].classList.add(`pos${pos}`);
                             }
-
                             this.properties.emptyPos = [parseInt(arr2[arr2.length - 1].style.gridArea[0]), parseInt(arr2[arr2.length - 1].style.gridArea[4])];
                             this.properties.time = [parseInt(arr[0]), parseInt(arr[1])];
                             this.properties.moves = parseInt(arr[2]);
-
-                            document.querySelector(".moveWrap").textContent = `Moves: ${this.properties.moves}`;
+                            document.querySelector(".moveWrap").textContent = `Ход: ${this.properties.moves}`;
                             this.toggleMenu();
                         }
                     });
                     break;
-
                 case "Autosolve":     
                     menuElement.addEventListener("click", () => {
                         let arr = this.properties.flow;
-
                         for (let i = arr.length - 1; i > 2; i--) {
                             if (arr[i] === arr[i - 2]) {
                                 arr.splice(i - 1, 2);
                             }
                         };
-
                         this.properties.flow = arr;
                         document.querySelector(".shield").style.display = "flex";
                         this.toggleMenu();
-
                         setTimeout(this.autoSolve, 500);
                     });
                     break;
-
                 case "Score":
                     menuElement.addEventListener("click", () => {
                         this.elements.score.removeChild(this.elements.score.lastChild);
                         scoreTable = document.createElement("table");
                         scoreTable.appendChild(this.createTable());
                         this.elements.score.appendChild(scoreTable);
-
                         document.querySelector(".score").classList.add("lbOpen");
                         document.querySelector(".score").classList.remove("lbClose");
                     });
@@ -512,9 +459,8 @@ const Gem = {
         this.properties.score = JSON.parse(localStorage.getItem("score"));
         let arr = this.properties.score;
         let h = document.createElement("tr");
-        h.innerHTML = "<tr><th>№</th><th>Score</th><th>Поле</th><th>Moves</th><th>Time</th></tr>";
+        h.innerHTML = "<tr><th>№</th><th>Score</th><th>Поле</th><th>Ходы</th><th>Время</th></tr>";
         fragment.appendChild(h);
-
         for (let i = 0; i < arr.length; i++) {
             let elem = document.createElement("tr");
             elem.innerHTML = `<tr><td>${i + 1}</td><td>${arr[i].score}</td><td>${arr[i].size}</td><td>${arr[i].moves}</td><td>${arr[i].time[0]} : ${arr[i].time[1]}</td></tr>`;
@@ -524,14 +470,12 @@ const Gem = {
     },
 
     showTime() {
-        Gem.elements.timeWrap.textContent = `Time: ${Gem.addZero(Gem.properties.time[0])}:${Gem.addZero(Gem.properties.time[1])}`;
+        Gem.elements.timeWrap.textContent = `Время: ${Gem.addZero(Gem.properties.time[0])}:${Gem.addZero(Gem.properties.time[1])}`;
         Gem.properties.time[1] = Gem.properties.time[1] + 1;
-
         if (Gem.properties.time[1] === 60) {
             Gem.properties.time[0]++;
             Gem.properties.time[1] = 0;
         };
-
         if (!Gem.properties.menu && !Gem.properties.msg) {
             setTimeout(Gem.showTime, 1000);
         };
@@ -551,7 +495,7 @@ const Gem = {
             ban = (this.properties.emptyPos[0] - 1) * this.properties.size + this.properties.emptyPos[1];
             this.swapElements(document.querySelector(`.pos${next}`));
         }
-        document.querySelector(".moveWrap").textContent = `Moves: ${this.properties.moves}`;
+        document.querySelector(".moveWrap").textContent = `Ход: ${this.properties.moves}`;
         this.properties.time = [0, 0];
     },
 
@@ -575,7 +519,6 @@ const Gem = {
                 count++;
             }
         };
-
         if (count === this.properties.size * this.properties.size - 1) {
             return true;
         } else {
@@ -586,9 +529,9 @@ const Gem = {
     toggleSound() {
         this.properties.sound = !this.properties.sound;
         if (this.properties.sound) {
-            document.querySelector(".sound").style.backgroundImage = 'url("assets/volume-on.svg")';
+            document.querySelector(".sound").style.backgroundImage = 'url("assets/volume_up.svg")';
         } else {
-            document.querySelector(".sound").style.backgroundImage = 'url("assets/volume-off.svg")';
+            document.querySelector(".sound").style.backgroundImage = 'url("assets/volume_off.svg")';
         }
     },
 
@@ -602,45 +545,36 @@ const Gem = {
             time: this.properties.time,
             pic: this.properties.picture
         };
-
         this.properties.score.push(final);
         this.properties.score.sort((prev, next) => next.score - prev.score);
         this.properties.score = this.properties.score.slice(0,10);
-
         localStorage.setItem("score", JSON.stringify(this.properties.score));
-
         if (this.properties.auto) {
             document.querySelector(".msg").innerText = `Игра решена за вас\n\n\nВы можете начать заново`;
             document.querySelector(".shield").style.display = "none";
         } else {
-            document.querySelector(".msg").innerText = `Hooray!\nYou solved the puzzle in ${this.properties.time[0]}m${this.properties.time[1]}s and ${this.properties.moves} moves!\nScore - ${score}\n\n\nНачать заново?`;
+            document.querySelector(".msg").innerText = `Ура!\nВы решили головоломку за ${this.properties.time[0]}м${this.properties.time[1]}с и ${this.properties.moves} ходов\nScore - ${score}\n\n\nНачать заново?`;
         }
-
         newGemMsg = document.createElement("p");
         newGemMsg.textContent = "New Game";
         document.querySelector(".msg").appendChild(newGemMsg);
         newGemMsg.classList.add("newGemMsg");
-
         newGemMsg.addEventListener("click", () => {
             this.properties.pictureURL = `url("assets/${Math.floor(1 + Math.random() * 90)}.jpg")`;
             let grid = document.querySelector(".grid");
-
             while (grid.firstChild) {
                 grid.removeChild(grid.firstChild);
             }
-
             grid.appendChild(this.createGrid());
             this.properties.flow = [];
             this.properties.moves = 0;
             this.properties.auto = false;
             this.shuffle();
-
             document.querySelector(".msg").classList.remove("msgOpen");
             document.querySelector(".msg").classList.add("msgClose");
             this.properties.msg = false;
             this.showTime();
         });
-
         document.querySelector(".msg").classList.add("msgOpen");
         this.properties.msg = true;
     },
@@ -648,13 +582,11 @@ const Gem = {
     autoSolve() {
         Gem.properties.auto = true;
         let arr = Gem.properties.flow;
-
         for (let i = arr.length - 1; i >= 0; i--) {
                 setTimeout(function timer() {
                     let e = document.querySelector(`.pos${arr[i]}`);
                     Gem.animate(e);
                     Gem.swapElements(e);
-
                 if (i === 0) {
                     Gem.showMsg();
                 };
